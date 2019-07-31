@@ -42,10 +42,5 @@ class GeneratePassword(Resource):
 api.add_resource(GenerateEmail, '/email')
 api.add_resource(GeneratePassword, '/password')
 
-@app.route('/')
-def index():
-    return "Welcome to the API"
-
 if __name__ == '__main__':
-    app.run()
-    # app.run(port='5002')
+    app.run(port='5002')
