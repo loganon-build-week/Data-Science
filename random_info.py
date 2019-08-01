@@ -13,34 +13,46 @@ import secrets, string
 app = Flask(__name__)
 api = Api(app)
 
-class GenerateEmail(Resource):
 
+class GenerateEmail(Resource):
     def get(self, length=16):
         """
         Generates a random prefix and attaches it to a loganon email address
         """
-        tail = '@loganon.33mail.com'
+        tail = "@loganon.33mail.com"
 
-        prefix = ''.join(secrets.choice(string.ascii_uppercase + 
-                        string.ascii_lowercase + string.digits) for _ in range(length))
-        email = {'email' : prefix + tail}
+        prefix = "".join(
+            secrets.choice(
+                string.ascii_uppercase + string.ascii_lowercase + string.digits
+            )
+            for _ in range(length)
+        )
+        email = {"email": prefix + tail}
         return jsonify(email)
 
+
 class GeneratePassword(Resource):
-        
     def get(self, length=16):
         """
         Generates a random password, default length 16
         """
-        password_text = ''.join(secrets.choice(string.ascii_uppercase + string.punctuation + 
-                        string.ascii_lowercase + string.digits) for _ in range(length))
-        
-        password = {'password': password_text}
+        password_text = "".join(
+            secrets.choice(
+                string.ascii_uppercase
+                + string.punctuation
+                + string.ascii_lowercase
+                + string.digits
+            )
+            for _ in range(length)
+        )
+
+        password = {"password": password_text}
 
         return jsonify(password)
 
-api.add_resource(GenerateEmail, '/email')
-api.add_resource(GeneratePassword, '/password')
 
-if __name__ == '__main__':
-    app.run(port='5002')
+api.add_resource(GenerateEmail, "/email")
+api.add_resource(GeneratePassword, "/password")
+
+if __name__ == "__main__":
+    app.run(port="5002")
